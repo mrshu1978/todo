@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import TodoInput from './components/TodoInput';
 import TodoItem from './components/TodoItem';
@@ -7,6 +7,21 @@ import TodoFilter from './components/TodoFilter';
 function App() {
   const [todos, setTodos] = useState([]);
   const [filter, setFilter] = useState('all');
+
+  useEffect(() => {
+    const stored = sessionStorage.getItem('react-todos');
+    if (stored) {
+      try {
+        setTodos(JSON.parse(stored));
+      } catch (e) {
+        console.error('Failed to parse todos', e);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    sessionStorage.setItem('react-todos', JSON.stringify(todos));
+  }, [todos]);
 
   const handleAddTodo = (text) => {
     const newTodo = { id: crypto.randomUUID(), text, completed: false };
