@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import TodoInput from './components/TodoInput';
 import TodoItem from './components/TodoItem';
+import TodoFilter from './components/TodoFilter';
 
 function App() {
   const [todos, setTodos] = useState([]);
@@ -20,6 +21,8 @@ function App() {
     setTodos(todos.filter(t => t.id !== id));
   };
 
+  const filteredTodos = filter === 'all' ? todos : filter === 'active' ? todos.filter(t => !t.completed) : todos.filter(t => t.completed);
+
   return (
     <div className='app-container'>
       <header>
@@ -27,8 +30,9 @@ function App() {
       </header>
       <main className='todo-main'>
         <TodoInput onAdd={handleAddTodo} />
+        <TodoFilter currentFilter={filter} onFilterChange={setFilter} />
         <div className='todo-list'>
-          {todos.map(todo => (
+          {filteredTodos.map(todo => (
             <TodoItem
               key={todo.id}
               todo={todo}

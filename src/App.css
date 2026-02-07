@@ -49,3 +49,22 @@ body {
 .todo-list {
   margin-top: 20px;
 }
+
+.todo-filter {
+  margin-top: 20px;
+}
+
+.todo-filter button {
+  margin-right: 10px;
+  padding: 5px 15px;
+  border: 1px solid #ccc;
+  background: white;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.todo-filter button.active {
+  background: #667eea;
+  color: white;
+}
+
